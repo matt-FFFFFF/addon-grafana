@@ -50,3 +50,10 @@ if bashio::config.has_value 'plugins'; then
             || bashio::exit.nok "Failed installing Grafana plugin: ${plugin}"
     done
 fi
+
+# Run pre-cmds
+if bashio::config.has_value 'pre_cmds'; then
+    for cmd in $(bashio::config 'pre_cmds'); do
+        $cmd || bashio::exit.nok "Failed running pre-cmds: ${cmd}"
+    done
+fi
